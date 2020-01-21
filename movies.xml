@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<movies>
+    <movie>
+        <title>Avengers</title>
+        <genre>SF</genre>
+        <lenght>125</lenght>
+        <rating>AP12</rating>
+    </movie>
+    <movie>
+        <title>JohnWick3</title>
+        <genre>Action</genre>
+        <lenght>98</lenght>
+        <rating>N-15</rating>
+    </movie>
+    <movie>
+        <title>Annabelle3</title>
+        <genre>Horror</genre>
+        <lenght>113</lenght>
+        <rating>N-15</rating>
+    </movie>
+    <movie>
+        <title>ToyStory4</title>
+        <genre>Animated</genre>
+        <lenght>90</lenght>
+        <rating>AG</rating>
+    </movie>
+    <movie>
+        <title>TheHustle</title>
+        <genre>Comedy</genre>
+        <lenght>99</lenght>
+        <rating>AP12</rating>
+    </movie>
+    <movie>
+        <title>It: Chapter Two</title>
+        <genre>Horror</genre>
+        <lenght>180</lenght>
+        <rating>N-15</rating>
+    </movie>
+</movies>

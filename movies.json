@@ -1,0 +1,40 @@
+{
+    "movies" :[
+    {
+       "title": "Avengers",
+       "genre": "SF",
+       "lenght": "125",
+       "rating": "AP12"
+    },
+    {
+       "title": "JohnWick3",
+       "genre": "Action",
+       "lenght": "98",
+       "rating": "N-15"
+    },
+    {
+       "title": "Annabelle3",
+       "genre": "Horror",
+       "lenght": "113",
+       "rating": "N-15"
+    },
+    {
+       "title": "ToyStory4",
+       "genre": "Animated",
+       "lenght": "90",
+       "rating": "AG"
+    },
+    {
+       "title": "TheHustle",
+       "genre": "Comedy",
+       "lenght": "99",
+       "rating": "AP12"
+    },
+    {
+       "title": "It: Chapter Two",
+       "genre": "Horror",
+       "lenght": "180",
+       "rating": "N-15"
+    }
+ ]
+}

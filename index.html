@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tehnologii Internet</title>
+
+    <style>
+        p {
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        table,
+        tr,
+        td,
+        th {
+            border-collapse: collapse;
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        th {
+            background-color: gray;
+        }
+    </style>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="js/jquery.min.js"></script>
+
+<!--script pentru adaugare intrare in baza de date-->    
+    <script>
+        $(function () {
+            $('form').bind('submit', function (event) {
+
+                event.preventDefault();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'addmovie.php',
+                    data: $('form').serialize(),
+                    success: function (data) {
+                        document.getElementById("response").innerHTML = "Movie added successfully!";
+                        document.getElementById("movie-list").innerHTML = data;
+                        $('#addmovie')[0].reset();
+                    }
+                });
+
+            });
+        });
+    </script>
+
+<!--script pentru parsare fisier XML-->  
+    <script>
+        function loadXMLFile() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    listFile(this);
+                }
+            };
+            xmlhttp.open("GET", "movies.xml", true);
+            xmlhttp.send();
+        }
+
+        function listFile(xml) {
+            var title, genre, lenght, rating, i, xmlDoc, txt;
+            xmlDoc = xml.responseXML;
+            txt = "";
+            title = xmlDoc.getElementsByTagName("title");
+            genre = xmlDoc.getElementsByTagName("genre");
+            lenght = xmlDoc.getElementsByTagName("lenght");
+            rating = xmlDoc.getElementsByTagName("rating");
+            for (i = 0; i < title.length; i++) {
+                txt += title[i].childNodes[0].nodeValue + "<br>" + genre[i].childNodes[0].nodeValue + "<br>" 
+                        + lenght[i].childNodes[0].nodeValue + " minutes <br>" + rating[i].childNodes[0].nodeValue + "<br> ========== <br>";
+            }
+            document.getElementById("parse-content").innerHTML = txt;
+        }
+    </script>
+
+<!--script pentru parsare fisier JSON-->
+    <script>
+        function loadJSONFile() {
+            var jsonhttp = new XMLHttpRequest();
+            jsonhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200){
+                //parsam string ul json
+                var jsonData = JSON.parse(this.responseText);
+                listFileJson(jsonData);
+            }
+        };
+
+        jsonhttp.open("GET", "movies.json", true);
+        jsonhttp.send();
+        }
+
+        function listFileJson(data){
+            var i, output= "";
+            for (i in data.movies){
+                output += data.movies[i].title + "<br>" + data.movies[i].genre + "  //  " + data.movies[i].lenght + " mins  //  "
+                         + data.movies[i].rating + "<br>--------------------<br>";
+            }
+
+            document.getElementById("parse-content").innerHTML = output;
+        }
+    </script>
+</head>
+
+<body>
+    <?php
+    include 'db_service.php';
+    ?>
+
+    <div id="menu-insert-movie" style="border: 0px solid black;padding-left: 5px; float: left; padding-bottom: 5px">
+
+        <p>Insert movie in database: </p>
+
+        <form id="addmovie" method="POST">
+            Movie Title:<br>
+            <input type="text" name='title' required><br>
+            Movie Genre:<br>
+            <input type="text" name="genre" required><br>
+            Lenght(mins):<br>
+            <input type="text" name="lenght" required><br>
+            Rating:<br>
+            <select name="rating" required>
+                <option value="AG">AG</option>
+                <option value="AP12">AP12</option>
+                <option value="N-15">N-15</option>
+                <option value="IM-18">IM-18</option>
+            </select>
+            <input name="submit" type="submit" value="ADD MOVIE">
+        </form>
+        <p id="response"></p>
+    </div>
+
+    <div id="movie-list" style="border: 0px solid black; padding-left: 35px; float: left; padding-bottom: 5px">
+        <p>List of movies(from database):</p>
+
+        <?php
+            $sql1 = "SELECT * FROM $table";
+            $movies = $conn->query($sql1);
+            if($movies->num_rows > 0){
+                echo "<table id='movieslist'>"; 
+                    echo "<tr>";
+                        echo "<th>ID</th>";
+                        echo "<th>Movie Title</th>";
+                        echo "<th>Genre</th>";
+                        echo "<th>Lenght(mins)</th>";
+                        echo "<th>Rating</th>";
+                    echo "</tr>";
+
+                while($row = $movies->fetch_assoc()){
+                    echo "<tr>";
+                        echo "<td>".$row["id"]."</td>";
+                        echo "<td>".$row["title"]."</td>";
+                        echo "<td>".$row["genre"]."</td>";
+                        echo "<td>".$row["lenght"]."</td>";
+                        echo "<td>".$row["rating"]."</td>";
+                    echo "</tr>";
+                }
+            } else
+                echo "There's no movies in database!";
+            mysqli_close($conn);
+        ?>
+        </table>
+    </div>
+
+    <div id="parser" style="border: 0px solid black;padding-left: 35px; float: left; padding-bottom: 5px">
+        <p>Parse an XML / JSON file:</p>
+        <button type="submit" onclick="loadXMLFile()">XML File</button>
+        <button type="submit" onclick="loadJSONFile()">JSON File</button>
+        <div id="parse-content"></div>
+    </div>
+</body>
+
+</html>
