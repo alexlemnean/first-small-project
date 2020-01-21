@@ -1,5 +1,6 @@
 
 <?php
+//database info for connection 2222
 $user = "root";
 $password = "lemnean";
 $host = "localhost";
