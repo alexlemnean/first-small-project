@@ -1,6 +1,6 @@
 
 <?php
-//parametri pentru conectarea la baza de date
+//database info for connection
 $user = "root";
 $password = "lemnean";
 $host = "localhost";
