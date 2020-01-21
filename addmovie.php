@@ -7,19 +7,19 @@ $host = "localhost";
 $dbase = "cinema";
 $table = "movies";
 
-//informatiile din formularul HTML
+//get from HTML FORM data
 $title = $_POST['title'];
 $genre = $_POST['genre'];
 $lenght = $_POST['lenght'];
 $rating = $_POST['rating'];
 
-//realizam conexiunea la baza de date si o verificam daca s-a efectuat
+//
 $conn = mysqli_connect($host, $user, $password, $dbase);
 if (!$conn) {
     die("ERROR connect: " . mysqli_connect_error());
 }
 
-//inseram in bd info din formularul html si verificam daca s-au adaugat
+//insert into database entry from FORM HTML
 $sql = "INSERT INTO $table (title, genre, lenght, rating) VALUES
         ('$title','$genre','$lenght','$rating')";
 if(mysqli_query($conn, $sql)){
@@ -52,6 +52,6 @@ if($movies->num_rows > 0){
 } else
     echo "There's no movies in database!";
 
-//inchidem conexiunea
+//close connection
 mysqli_close($conn);
 ?>
