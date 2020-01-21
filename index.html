@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>Tehnologii Internet</title>
+    <title>List of Best Movies</title>
 
+<!--CSS Style-->
     <style>
         p {
             font-weight: bold;
@@ -28,7 +29,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="js/jquery.min.js"></script>
 
-<!--script pentru adaugare intrare in baza de date-->    
+<!--add entry in database-->    
     <script>
         $(function () {
             $('form').bind('submit', function (event) {
@@ -50,7 +51,7 @@
         });
     </script>
 
-<!--script pentru parsare fisier XML-->  
+<!--parsing XML File-->  
     <script>
         function loadXMLFile() {
             var xmlhttp = new XMLHttpRequest();
@@ -79,7 +80,7 @@
         }
     </script>
 
-<!--script pentru parsare fisier JSON-->
+<!--parsing a JSON file-->
     <script>
         function loadJSONFile() {
             var jsonhttp = new XMLHttpRequest();
@@ -114,7 +115,7 @@
 
     <div id="menu-insert-movie" style="border: 0px solid black;padding-left: 5px; float: left; padding-bottom: 5px">
 
-        <p>Insert movie in database: </p>
+        <p>Insert a movie in database: </p>
 
         <form id="addmovie" method="POST">
             Movie Title:<br>
