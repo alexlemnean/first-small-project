@@ -1,6 +1,5 @@
 
 <?php
-//database info for connection
 $user = "root";
 $password = "lemnean";
 $host = "localhost";
